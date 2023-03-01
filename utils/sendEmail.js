@@ -10,13 +10,21 @@ const sendMail = async (email,url) =>
     },
   });
 
-  let info = await transporter.sendMail({
-    from: '"NSS JMIETI" <nssjmieti@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: "Verify Gmail ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>"+url+"</b>", // html body
-  });
+  try
+  {
+
+    let info = await transporter.sendMail({
+      from: '"NSS JMIETI" <nssjmieti@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: "Verify Gmail ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>"+url+"</b>", // html body
+    });
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
 }
 
 export default sendMail;
