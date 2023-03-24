@@ -13,6 +13,10 @@ const fetchPost = async (req , res) => {
     });  
     const pulic_id = post.image.public_id; 
     const image  = await cloudinary.uploader.destroy(pulic_id);
+    if(post.vedio.public_id != " ")
+    {
+      const vedio = await cloudinary.uploader.destroy(post.vedio.public_id);
+    }
     await Post.findByIdAndRemove({_id});
     const comment  =  await Comment.deleteMany({postId:_id});
     return res.status(200).json({post ,msg:"Your post has been deleted."});
