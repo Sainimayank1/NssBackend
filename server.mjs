@@ -1,4 +1,5 @@
 import UserRouter from "./routes/userRouter.js"
+import donationRouter from './routes/donationRouter.js'
 import express from "express";
 import dotenv from 'dotenv'
 import bodyParser from "body-parser";
@@ -13,7 +14,8 @@ const port = 8000
 dotenv.config()
 app.use(cors())
 app.use(bodyParser.json());
-app.use("/post",postRouter)
+app.use("/donation",donationRouter)
+app.use("/post",postRouter);
 app.use("/",UserRouter);
 connect();
 

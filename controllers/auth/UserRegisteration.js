@@ -34,7 +34,7 @@ export const registeration = async (req, res) => {
 
   try {
                                       //      FIND USER IS IT EXIST
-    const checkUser = await User.findOne({ email });
+    const checkUser = await User.findOne({email});
     if (checkUser)
       return res.status(400).json({ errors: [{ msg: "Email already exist" }] });
     try {
