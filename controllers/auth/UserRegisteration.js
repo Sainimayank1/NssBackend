@@ -25,7 +25,7 @@ export const registerValidation = [
 
                                       //              POST REGISTRATION ROUTE CONTROLLER
 export const registeration = async (req, res) => {
-  const { name, email, password, cpassword, phone } = req.body;
+  const {isTeacher,  name, email, password, rollno , cpassword, phone } = req.body;
 
                                       //          CHECK HERE IS , IT CRENDTIOL IS PROPER VALIDATE OR NOT ?
   const errors = validationResult(req);
@@ -34,7 +34,7 @@ export const registeration = async (req, res) => {
 
   try {
                                       //      FIND USER IS IT EXIST
-    const checkUser = await User.findOne({email});
+    const checkUser = await User.findOne({ email });
     if (checkUser)
       return res.status(400).json({ errors: [{ msg: "Email already exist" }] });
     try {
@@ -44,8 +44,10 @@ export const registeration = async (req, res) => {
         bcrypt.hash(password, salt, async (err, hash) => {
           bcrypt.hash(cpassword, salt, async (err, hashed) => {
             const user = await User.create({
+              isTeacher,
               name,
               email,
+              rollno,
               password: hash,
               cpassword: hashed,
               phone,

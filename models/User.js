@@ -2,9 +2,15 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
+        isTeacher:{
+            type:Boolean
+        },
         name:{
             type:String,
             required:true
+        },
+        rollno:{
+            type:String
         },
         email:{
             type:String,
