@@ -9,15 +9,15 @@ import nodemailer from "nodemailer";
 
 //              MIDDLE FOR VALIDATION
 export const registerValidation = [
-  body("name").not().isEmpty().withMessage("Invalid Name"),
-  body("email").isEmail().withMessage("Invalid Email"),
-  body("password")
+  body("state.name").not().isEmpty().withMessage("Invalid Name"),
+  body("state.email").isEmail().withMessage("Invalid Email"),
+  body("state.password")
     .isLength({ min: 8 })
     .withMessage("Password must contain atleast 8 alphabets"),
-  body("cpassword")
+  body("state.cpassword")
     .isLength({ min: 8 })
     .withMessage("Confirm Password must contain atleast 8 alphabets"),
-  body("phone")
+  body("state.phone")
     .isNumeric()
     .isLength({ min: 8 })
     .withMessage("Phone number must container 10 Digits and Numeric"),
@@ -25,7 +25,8 @@ export const registerValidation = [
 
                                       //              POST REGISTRATION ROUTE CONTROLLER
 export const registeration = async (req, res) => {
-  const {isTeacher,  name, email, password, rollno , cpassword, phone } = req.body;
+  const {isTeacher,  name, email, password, rollno , cpassword, phone } = req.body.state;
+  const {url,public_id} = req.body.imgData;
 
                                       //          CHECK HERE IS , IT CRENDTIOL IS PROPER VALIDATE OR NOT ?
   const errors = validationResult(req);
@@ -33,7 +34,7 @@ export const registeration = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
 
   try {
-                                      //      FIND USER IS IT EXIST
+                                          //  FIND USER IS IT EXIST
     const checkUser = await User.findOne({ email });
     if (checkUser)
       return res.status(400).json({ errors: [{ msg: "Email already exist" }] });
@@ -48,6 +49,8 @@ export const registeration = async (req, res) => {
               name,
               email,
               rollno,
+              url,
+              public_id,
               password: hash,
               cpassword: hashed,
               phone,
@@ -62,8 +65,8 @@ export const registeration = async (req, res) => {
               res.status(200).json({ error });
             }
             // 
-            const url =`${process.env.BASE_URL}users/${user.id}/verify/${TokenRes.token}`;
-            sendMail(email, url);                 // INVOKE SENDMAIL FUNC
+            const email_url =`${process.env.BASE_URL}users/${user.id}/verify/${TokenRes.token}`;
+            sendMail(email, email_url);                 // INVOKE SENDMAIL FUNC
             res
               .status(201)
               .json({ message: "An Email sent to your account please verify" });
@@ -78,5 +81,5 @@ export const registeration = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ errors: error });
-  }
+}
 };
