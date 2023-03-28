@@ -3,7 +3,7 @@ import cloudinary from "cloudinary";
 
 const createPost = async (req, res) => {
     const errors = [];
-    const { title, description, slug, _id, name , image_url , image_public , vedio_public , vedio_url , vedio_thumbnail} = req.fields;
+    const { title, description, slug, _id, name ,url , public_id, image_url , image_public , vedio_public , vedio_url , vedio_thumbnail} = req.fields;
     // Validation
 
     if (title === "") {
@@ -30,6 +30,8 @@ const createPost = async (req, res) => {
         try {
             const response = await Post.create({
                 title,
+                url,
+                public_id,
                 image: {
                     public_id: image_public,
                     url: image_url

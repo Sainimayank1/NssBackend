@@ -6,6 +6,12 @@ const PostSchema = new mongoose.Schema(
             type:String,
             required:true
         },
+        url:{
+            type:String
+        },
+        public_id:{
+            type:String
+        },
         image:{
             public_id: {
                 type: String,

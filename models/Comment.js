@@ -7,6 +7,12 @@ const commentSchema = new mongoose.Schema(
             ref:"post",
             required:true
         },
+        url:{
+            type:String
+        },
+        public_id:{
+            type:String
+        },
         comment:{
             type:String,
             required:true

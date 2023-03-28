@@ -14,10 +14,6 @@ const updateImage = async(req ,res) =>
         }); 
          try {
             const user = await User.find({_id:id});
-            if(user[0].public_id !== "")
-            {
-                const image  = await cloudinary.uploader.destroy(user[0].public_id);
-            }
             const response = await User.findOneAndUpdate({_id:id},{url:url},{new:true})
             const response2 = await User.findOneAndUpdate({_id:id},{public_id:public_id},{new:true});
             if(response)
