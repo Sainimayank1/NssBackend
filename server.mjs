@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 import bodyParser from "body-parser";
 import cors from "cors";
 import connect from './config/db.js'
-import donationRouter from "./routes/donationRouter.js"
 import postRouter from "./routes/postRouter.js"
 
 
@@ -14,7 +13,6 @@ const port = 8000
 dotenv.config()
 app.use(cors())
 app.use(bodyParser.json());
-app.use("/donation",donationRouter);
 app.use("/post",postRouter);
 app.use("/",UserRouter);
 connect();
