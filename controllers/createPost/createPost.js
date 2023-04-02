@@ -24,7 +24,7 @@ const createPost = async (req, res) => {
 
 
     if (errors.length != 0) {
-        return res.status(400).json({ errors, files })
+        return res.status(400).json({ errors})
     }
     else {
         try {
