@@ -10,6 +10,7 @@ import CommentPost from "../controllers/Comment/CommentPost.js"
 import FetchAllUserPosts from "../controllers/FetchAllposts/FetchAllUserPosts.js"
 import {updatePost,updaetValidation} from "../controllers/update/updatePost.js"
 import DeletePost from "../controllers/DeletePost/DeletePost.js"
+import getAllPosts from "../controllers/FetchAllposts/getAllposts.js"
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ const router = express.Router();
 
 router.post("/create", auth , expressFormidable({maxFileSize : 5 * 1024 * 1024}) , createPost);
 router.get("/posts/:page" , FetchAllPosts);
+router.get("/posts",getAllPosts);
 router.get("/userAllPost/:page/:_id" , auth , FetchAllUserPosts )
 router.get("/:PostId" , FetchPost);
 router.post("/delete/:id",DeletePost);
