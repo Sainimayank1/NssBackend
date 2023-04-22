@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connect from './config/db.js'
 import postRouter from "./routes/postRouter.js"
+import awardRouter from "./routes/awardRouter.js"
 
 
 const app = express()
@@ -13,6 +14,7 @@ const port = 8000
 dotenv.config()
 app.use(cors())
 app.use(bodyParser.json());
+app.use("/award",awardRouter)
 app.use("/post",postRouter);
 app.use("/",UserRouter);
 connect();
